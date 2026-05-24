@@ -7,13 +7,14 @@ import { audioApi } from '@/lib/api';
 import Navbar from '@/components/Navbar';
 import PodcastList from '@/components/PodcastList';
 import UploadForm from '@/components/UploadForm';
+import VerseManager from '@/components/VerseManager';
 
 export default function DashboardPage() {
   const router = useRouter();
   const { user, isAuthenticated, token } = useAuthStore();
   const [podcasts, setPodcasts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState<'podcasts' | 'upload'>('podcasts');
+  const [activeTab, setActiveTab] = useState<'podcasts' | 'upload' | 'verses'>('podcasts');
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -84,16 +85,27 @@ export default function DashboardPage() {
           >
             Upload New
           </button>
+          <button
+            onClick={() => setActiveTab('verses')}
+            className={`px-6 py-3 font-semibold border-b-2 transition ${
+              activeTab === 'verses'
+                ? 'border-blue-600 text-blue-600'
+                : 'border-transparent text-slate-600 hover:text-slate-900'
+            }`}
+          >
+            Church Verses
+          </button>
         </div>
 
         {/* Content */}
-        {activeTab === 'podcasts' ? (
+        {activeTab === 'podcasts' && (
           <PodcastList
             podcasts={podcasts}
             loading={loading}
             onRefresh={loadPodcasts}
           />
-        ) : (
+        )}
+        {activeTab === 'upload' && (
           <UploadForm
             onUploadSuccess={() => {
               setActiveTab('podcasts');
@@ -101,6 +113,7 @@ export default function DashboardPage() {
             }}
           />
         )}
+        {activeTab === 'verses' && <VerseManager />}
       </main>
     </div>
   );

@@ -1,7 +1,14 @@
 import axios, { AxiosInstance } from 'axios';
 import { useAuthStore } from './store';
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5005/api';
+const IS_PROD = typeof window !== 'undefined' 
+  ? !window.location.hostname.includes('localhost')
+  : process.env.NODE_ENV === 'production';
+
+const PROD_URL = 'https://glabackend-production.up.railway.app/api';
+const DEV_URL = 'http://localhost:5005/api';
+
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || (IS_PROD ? PROD_URL : DEV_URL);
 
 export const createApiClient = (token?: string): AxiosInstance => {
   const client = axios.create({
@@ -95,6 +102,27 @@ export const userApi = {
   deleteUser: async (id: string, token: string) => {
     const client = createApiClient(token);
     const response = await client.delete(`/users/${id}`);
+    return response.data;
+  },
+};
+
+// Verse APIs
+export const verseApi = {
+  getAllVerses: async (token: string) => {
+    const client = createApiClient(token);
+    const response = await client.get('/verses');
+    return response.data;
+  },
+
+  createVerse: async (data: any, token: string) => {
+    const client = createApiClient(token);
+    const response = await client.post('/verses', data);
+    return response.data;
+  },
+
+  deleteVerse: async (id: string, token: string) => {
+    const client = createApiClient(token);
+    const response = await client.delete(`/verses/${id}`);
     return response.data;
   },
 };
