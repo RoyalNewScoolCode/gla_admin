@@ -26,7 +26,7 @@ export const authApi = {
 
   logout: async () => {
     const { token } = useAuthStore.getState();
-    const client = createApiClient(token);
+    const client = createApiClient(token ?? undefined);
     return client.post('/users/logout');
   },
 
