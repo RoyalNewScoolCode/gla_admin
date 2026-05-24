@@ -38,64 +38,87 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 to-slate-800">
-      <div className="w-full max-w-md">
-        <div className="bg-white rounded-lg shadow-xl p-8">
-          <h1 className="text-3xl font-bold text-center text-slate-900 mb-2">
+    <div className="min-h-screen flex items-center justify-center bg-[#030712] relative overflow-hidden">
+      {/* Decorative background elements */}
+      <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-blue-600/10 rounded-full blur-[120px]"></div>
+      <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-blue-600/10 rounded-full blur-[120px]"></div>
+
+      <div className="w-full max-w-md px-6 relative z-10">
+        <div className="text-center mb-10">
+          <div className="w-20 h-20 bg-blue-600 rounded-3xl flex items-center justify-center shadow-2xl shadow-blue-500/20 mx-auto mb-6 transform rotate-3 hover:rotate-0 transition-transform duration-500">
+            <span className="text-white font-bold text-4xl">G</span>
+          </div>
+          <h1 className="text-4xl font-extrabold text-white tracking-tight mb-2">
             GLA Admin
           </h1>
-          <p className="text-center text-slate-600 mb-8">
-            Podcast Management Dashboard
+          <p className="text-slate-400 font-medium uppercase tracking-widest text-xs">
+            Portail de Gestion
           </p>
+        </div>
 
-          <form onSubmit={handleSubmit} className="space-y-6">
+        <div className="bg-[#111827] rounded-[2.5rem] border border-white/10 shadow-2xl p-10 backdrop-blur-sm">
+          <form onSubmit={handleSubmit} className="space-y-8">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-2">
+              <label className="block text-sm font-bold text-slate-300 mb-3 uppercase tracking-wider">
                 Email
               </label>
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                className="w-full px-4 py-2 border border-slate-300 rounded-lg text-slate-900 placeholder:text-slate-400 bg-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                placeholder="admin@gla.com"
-              />
+              <div className="relative">
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                  className="w-full px-6 py-5 bg-[#0B1120] border border-white/10 rounded-2xl text-white placeholder:text-slate-600 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
+                  placeholder="admin@gla.com"
+                />
+              </div>
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-2">
-                Password
+              <label className="block text-sm font-bold text-slate-300 mb-3 uppercase tracking-wider">
+                Mot de passe
               </label>
-              <input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                className="w-full px-4 py-2 border border-slate-300 rounded-lg text-slate-900 placeholder:text-slate-400 bg-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                placeholder="••••••••"
-              />
+              <div className="relative">
+                <input
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                  className="w-full px-6 py-5 bg-[#0B1120] border border-white/10 rounded-2xl text-white placeholder:text-slate-600 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
+                  placeholder="••••••••"
+                />
+              </div>
             </div>
 
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-slate-400 text-white font-semibold py-2 px-4 rounded-lg transition"
+              className="w-full bg-blue-600 hover:bg-blue-500 disabled:bg-slate-700 disabled:cursor-not-allowed text-white font-bold py-5 rounded-2xl shadow-xl shadow-blue-600/20 transition-all duration-300 transform hover:-translate-y-1 active:scale-[0.98]"
             >
-              {loading ? 'Logging in...' : 'Login'}
+              {loading ? (
+                <span className="flex items-center justify-center gap-2">
+                  <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                  Connexion...
+                </span>
+              ) : 'Se connecter'}
             </button>
           </form>
 
-          <div className="mt-6 p-4 bg-slate-100 rounded-lg">
-            <p className="text-sm text-slate-600">
-              <strong>Test Admin:</strong>
-            </p>
-            <p className="text-sm text-slate-600">
-              Email: admin@gla.com
-            </p>
-            <p className="text-sm text-slate-600">
-              Password: admin123
-            </p>
+          <div className="mt-10 pt-8 border-t border-white/5">
+            <div className="bg-white/5 rounded-2xl p-4 border border-white/5">
+              <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2">Accès Test</p>
+              <div className="space-y-1">
+                <p className="text-sm text-slate-300">
+                  <span className="text-slate-500">Email:</span> admin@gla.com
+                </p>
+                <p className="text-sm text-slate-300">
+                  <span className="text-slate-500">Pass:</span> admin123
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
