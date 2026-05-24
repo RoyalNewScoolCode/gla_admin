@@ -49,71 +49,81 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-[#030712]">
       <Navbar user={user} />
 
-      <main className="max-w-7xl mx-auto px-4 py-8">
-        {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold text-slate-900">
-            Podcast Management
-          </h1>
-          <p className="text-slate-600 mt-2">
-            Upload, manage, and organize your podcasts
-          </p>
+      <main className="max-w-7xl mx-auto px-6 py-10">
+        {/* Header Section */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+          <div>
+            <h1 className="text-4xl font-extrabold text-white tracking-tight">
+              Dashboard
+            </h1>
+            <p className="text-slate-400 mt-2 text-lg">
+              Manage your church podcasts, verses, and member content.
+            </p>
+          </div>
+          <div className="flex items-center gap-3 bg-white/5 p-1 rounded-2xl border border-white/10">
+            <button
+              onClick={() => setActiveTab('podcasts')}
+              className={`px-6 py-2.5 rounded-xl font-bold transition-all duration-300 ${
+                activeTab === 'podcasts'
+                  ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/20'
+                  : 'text-slate-400 hover:text-white hover:bg-white/5'
+              }`}
+            >
+              Library
+            </button>
+            <button
+              onClick={() => setActiveTab('upload')}
+              className={`px-6 py-2.5 rounded-xl font-bold transition-all duration-300 ${
+                activeTab === 'upload'
+                  ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/20'
+                  : 'text-slate-400 hover:text-white hover:bg-white/5'
+              }`}
+            >
+              Upload
+            </button>
+            <button
+              onClick={() => setActiveTab('verses')}
+              className={`px-6 py-2.5 rounded-xl font-bold transition-all duration-300 ${
+                activeTab === 'verses'
+                  ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/20'
+                  : 'text-slate-400 hover:text-white hover:bg-white/5'
+              }`}
+            >
+              Verses
+            </button>
+          </div>
         </div>
 
-        {/* Tabs */}
-        <div className="flex gap-4 mb-8 border-b border-slate-200">
-          <button
-            onClick={() => setActiveTab('podcasts')}
-            className={`px-6 py-3 font-semibold border-b-2 transition ${
-              activeTab === 'podcasts'
-                ? 'border-blue-600 text-blue-600'
-                : 'border-transparent text-slate-600 hover:text-slate-900'
-            }`}
-          >
-            My Podcasts ({podcasts.length})
-          </button>
-          <button
-            onClick={() => setActiveTab('upload')}
-            className={`px-6 py-3 font-semibold border-b-2 transition ${
-              activeTab === 'upload'
-                ? 'border-blue-600 text-blue-600'
-                : 'border-transparent text-slate-600 hover:text-slate-900'
-            }`}
-          >
-            Upload New
-          </button>
-          <button
-            onClick={() => setActiveTab('verses')}
-            className={`px-6 py-3 font-semibold border-b-2 transition ${
-              activeTab === 'verses'
-                ? 'border-blue-600 text-blue-600'
-                : 'border-transparent text-slate-600 hover:text-slate-900'
-            }`}
-          >
-            Church Verses
-          </button>
+        {/* Content Area with Glassmorphism effect */}
+        <div className="relative">
+          {activeTab === 'podcasts' && (
+            <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <PodcastList
+                podcasts={podcasts}
+                loading={loading}
+                onRefresh={loadPodcasts}
+              />
+            </div>
+          )}
+          {activeTab === 'upload' && (
+            <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <UploadForm
+                onUploadSuccess={() => {
+                  setActiveTab('podcasts');
+                  loadPodcasts();
+                }}
+              />
+            </div>
+          )}
+          {activeTab === 'verses' && (
+            <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <VerseManager />
+            </div>
+          )}
         </div>
-
-        {/* Content */}
-        {activeTab === 'podcasts' && (
-          <PodcastList
-            podcasts={podcasts}
-            loading={loading}
-            onRefresh={loadPodcasts}
-          />
-        )}
-        {activeTab === 'upload' && (
-          <UploadForm
-            onUploadSuccess={() => {
-              setActiveTab('podcasts');
-              loadPodcasts();
-            }}
-          />
-        )}
-        {activeTab === 'verses' && <VerseManager />}
       </main>
     </div>
   );
