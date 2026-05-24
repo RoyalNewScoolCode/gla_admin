@@ -2,16 +2,24 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export function middleware(request: NextRequest) {
   const token = request.cookies.get('token')?.value;
-  const isLoginPage = request.nextUrl.pathname === '/login';
+  const { pathname } = request.nextUrl;
 
-  // If no token and trying to access protected route, redirect to login
-  if (!token && !isLoginPage) {
-    return NextResponse.redirect(new URL('/login', request.url));
+  // Protect dashboard routes
+  if (pathname.startsWith('/dashboard')) {
+    if (!token) {
+      const url = request.nextUrl.clone();
+      url.pathname = '/login';
+      return NextResponse.redirect(url);
+    }
   }
 
-  // If has token and trying to access login page, redirect to dashboard
-  if (token && isLoginPage) {
-    return NextResponse.redirect(new URL('/dashboard', request.url));
+  // Redirect from login if already authenticated
+  if (pathname === '/login') {
+    if (token) {
+      const url = request.nextUrl.clone();
+      url.pathname = '/dashboard';
+      return NextResponse.redirect(url);
+    }
   }
 
   return NextResponse.next();
