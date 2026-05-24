@@ -1,14 +1,32 @@
 import axios, { AxiosInstance } from 'axios';
 import { useAuthStore } from './store';
 
-const IS_PROD = typeof window !== 'undefined' 
-  ? !window.location.hostname.includes('localhost')
-  : process.env.NODE_ENV === 'production';
+const getApiUrl = () => {
+  const envUrl = process.env.NEXT_PUBLIC_API_URL;
+  
+  if (envUrl) {
+    // If it's a relative path or missing protocol, fix it
+    let fixedUrl = envUrl;
+    if (!fixedUrl.startsWith('http')) {
+      fixedUrl = `https://${fixedUrl}`;
+    }
+    // Ensure it ends with /api
+    if (!fixedUrl.endsWith('/api')) {
+      fixedUrl = fixedUrl.replace(/\/$/, '') + '/api';
+    }
+    return fixedUrl;
+  }
 
-const PROD_URL = 'https://glabackend-production.up.railway.app/api';
-const DEV_URL = 'http://localhost:5005/api';
+  const IS_PROD = typeof window !== 'undefined' 
+    ? !window.location.hostname.includes('localhost')
+    : process.env.NODE_ENV === 'production';
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || (IS_PROD ? PROD_URL : DEV_URL);
+  return IS_PROD 
+    ? 'https://glabackend-production.up.railway.app/api'
+    : 'http://localhost:5005/api';
+};
+
+const API_BASE_URL = getApiUrl();
 
 export const createApiClient = (token?: string): AxiosInstance => {
   const client = axios.create({
