@@ -57,10 +57,10 @@ export default function DashboardPage() {
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
           <div>
             <h1 className="text-4xl font-extrabold text-white tracking-tight">
-              Dashboard
+              Tableau de Bord
             </h1>
             <p className="text-slate-400 mt-2 text-lg">
-              Manage your church podcasts, verses, and member content.
+              Gérez vos podcasts, versets et contenu pour les membres.
             </p>
           </div>
           <div className="flex items-center gap-3 bg-white/5 p-1 rounded-2xl border border-white/10">
@@ -72,7 +72,7 @@ export default function DashboardPage() {
                   : 'text-slate-400 hover:text-white hover:bg-white/5'
               }`}
             >
-              Library
+              Bibliothèque
             </button>
             <button
               onClick={() => setActiveTab('upload')}
@@ -82,7 +82,7 @@ export default function DashboardPage() {
                   : 'text-slate-400 hover:text-white hover:bg-white/5'
               }`}
             >
-              Upload
+              Télécharger
             </button>
             <button
               onClick={() => setActiveTab('verses')}
@@ -92,7 +92,7 @@ export default function DashboardPage() {
                   : 'text-slate-400 hover:text-white hover:bg-white/5'
               }`}
             >
-              Verses
+              Versets
             </button>
           </div>
         </div>

@@ -14,7 +14,7 @@ export default function Navbar({ user }: NavbarProps) {
 
   const handleLogout = () => {
     logout();
-    toast.success('Logged out successfully');
+    toast.success('Déconnexion réussie');
     router.push('/login');
   };
 
@@ -29,7 +29,7 @@ export default function Navbar({ user }: NavbarProps) {
             <h1 className="text-xl font-bold text-white tracking-tight">GLA Admin</h1>
             <div className="flex items-center gap-1.5">
               <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
-              <span className="text-[10px] uppercase tracking-wider text-slate-400 font-bold">System Online</span>
+              <span className="text-[10px] uppercase tracking-wider text-slate-400 font-bold">Système en ligne</span>
             </div>
           </div>
         </div>

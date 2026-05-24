@@ -77,7 +77,7 @@ export default function UploadForm({ onUploadSuccess }: UploadFormProps) {
 
       await audioApi.uploadAudio(uploadFormData, token!);
 
-      toast.success('Podcast uploaded successfully!');
+      toast.success('Podcast téléchargé avec succès !');
       setFormData({
         title: '',
         artist: 'GLA',
@@ -89,7 +89,7 @@ export default function UploadForm({ onUploadSuccess }: UploadFormProps) {
       setAudio(null);
       onUploadSuccess();
     } catch (error: any) {
-      toast.error(error.response?.data?.message || 'Upload failed');
+      toast.error(error.response?.data?.message || 'Échec du téléchargement');
     } finally {
       setLoading(false);
     }
@@ -101,15 +101,15 @@ export default function UploadForm({ onUploadSuccess }: UploadFormProps) {
     <div className="max-w-4xl mx-auto">
       <div className="bg-[#111827] rounded-3xl border border-white/10 shadow-2xl p-8 md:p-12">
         <div className="mb-10">
-          <h2 className="text-3xl font-bold text-white mb-2">Publish Content</h2>
-          <p className="text-slate-400">Add a new podcast or teaching to the GLA library.</p>
+          <h2 className="text-3xl font-bold text-white mb-2">Publier du Contenu</h2>
+          <p className="text-slate-400">Ajoutez un nouveau podcast ou enseignement à la bibliothèque GLA.</p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-8">
           {/* Title */}
           <div>
             <label className="block text-sm font-bold text-slate-300 mb-3 uppercase tracking-wider">
-              Podcast Title
+              Titre du Podcast
             </label>
             <input
               type="text"
@@ -118,7 +118,7 @@ export default function UploadForm({ onUploadSuccess }: UploadFormProps) {
               onChange={handleInputChange}
               required
               className="w-full px-5 py-4 bg-[#0B1120] border border-white/10 rounded-2xl text-white placeholder:text-slate-600 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
-              placeholder="e.g. The Power of Faith"
+              placeholder="ex: Le Pouvoir de la Foi"
             />
           </div>
 
@@ -126,7 +126,7 @@ export default function UploadForm({ onUploadSuccess }: UploadFormProps) {
             {/* Language */}
             <div>
               <label className="block text-sm font-bold text-slate-300 mb-3 uppercase tracking-wider">
-                Language
+                Langue
               </label>
               <select
                 name="language"
@@ -136,7 +136,7 @@ export default function UploadForm({ onUploadSuccess }: UploadFormProps) {
               >
                 {LANGUAGES.map((lang) => (
                   <option key={lang} value={lang}>
-                    {lang.toUpperCase() === 'EN' ? 'English' : lang.toUpperCase() === 'FR' ? 'French' : 'Swahili'}
+                    {lang.toUpperCase() === 'EN' ? 'Anglais' : lang.toUpperCase() === 'FR' ? 'Français' : 'Swahili'}
                   </option>
                 ))}
               </select>
@@ -145,7 +145,7 @@ export default function UploadForm({ onUploadSuccess }: UploadFormProps) {
             {/* Album */}
             <div>
               <label className="block text-sm font-bold text-slate-300 mb-3 uppercase tracking-wider">
-                Category / Album
+                Catégorie / Album
               </label>
               <select
                 name="album"
@@ -165,7 +165,7 @@ export default function UploadForm({ onUploadSuccess }: UploadFormProps) {
           {/* Artist */}
           <div>
             <label className="block text-sm font-bold text-slate-300 mb-3 uppercase tracking-wider">
-              Speaker / Artist
+              Orateur / Artiste
             </label>
             <input
               type="text"
@@ -173,14 +173,14 @@ export default function UploadForm({ onUploadSuccess }: UploadFormProps) {
               value={formData.artist}
               onChange={handleInputChange}
               className="w-full px-5 py-4 bg-[#0B1120] border border-white/10 rounded-2xl text-white placeholder:text-slate-600 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
-              placeholder="Artist name"
+              placeholder="Nom de l'artiste"
             />
           </div>
 
           {/* Description */}
           <div>
             <label className="block text-sm font-bold text-slate-300 mb-3 uppercase tracking-wider">
-              Message Description
+              Description du Message
             </label>
             <textarea
               name="description"
@@ -188,7 +188,7 @@ export default function UploadForm({ onUploadSuccess }: UploadFormProps) {
               onChange={handleInputChange}
               rows={4}
               className="w-full px-5 py-4 bg-[#0B1120] border border-white/10 rounded-2xl text-white placeholder:text-slate-600 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all resize-none"
-              placeholder="What is this message about? (Add scriptural references here)"
+              placeholder="De quoi parle ce message ? (Ajoutez les références bibliques ici)"
             />
           </div>
 
@@ -196,7 +196,7 @@ export default function UploadForm({ onUploadSuccess }: UploadFormProps) {
             {/* Image Upload */}
             <div>
               <label className="block text-sm font-bold text-slate-300 mb-3 uppercase tracking-wider">
-                Cover Image
+                Image de Couverture
               </label>
               <div className="relative group">
                 <input
@@ -221,8 +221,8 @@ export default function UploadForm({ onUploadSuccess }: UploadFormProps) {
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                         </svg>
                       </div>
-                      <p className="text-sm font-bold text-white">Select Image</p>
-                      <p className="text-xs text-slate-500 mt-1">PNG, JPG up to 10MB</p>
+                      <p className="text-sm font-bold text-white">Sélectionner une Image</p>
+                      <p className="text-xs text-slate-500 mt-1">PNG, JPG jusqu'à 10 Mo</p>
                     </>
                   )}
                 </label>
@@ -232,7 +232,7 @@ export default function UploadForm({ onUploadSuccess }: UploadFormProps) {
             {/* Audio Upload */}
             <div>
               <label className="block text-sm font-bold text-slate-300 mb-3 uppercase tracking-wider">
-                Audio Recording
+                Enregistrement Audio
               </label>
               <div className="relative group">
                 <input
@@ -257,8 +257,8 @@ export default function UploadForm({ onUploadSuccess }: UploadFormProps) {
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
                         </svg>
                       </div>
-                      <p className="text-sm font-bold text-white">Select Audio</p>
-                      <p className="text-xs text-slate-500 mt-1">MP3, WAV up to 100MB</p>
+                      <p className="text-sm font-bold text-white">Sélectionner un Audio</p>
+                      <p className="text-xs text-slate-500 mt-1">MP3, WAV jusqu'à 100 Mo</p>
                     </>
                   )}
                 </label>
@@ -278,9 +278,9 @@ export default function UploadForm({ onUploadSuccess }: UploadFormProps) {
                   <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                   <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                 </svg>
-                Publishing Message...
+                Publication en cours...
               </span>
-            ) : 'Publish Podcast'}
+            ) : 'Publier le Podcast'}
           </button>
         </form>
       </div>
