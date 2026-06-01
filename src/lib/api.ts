@@ -95,6 +95,21 @@ export const audioApi = {
     const response = await client.delete(`/audio/${id}`);
     return response.data;
   },
+  updateAudio: async (id: string, formData: FormData, token: string) => {
+    const client = axios.create({
+      baseURL: API_BASE_URL,
+      headers: {
+        'x-auth-token': token,
+      },
+    });
+
+    const response = await client.put(`/audio/${id}`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    return response.data;
+  },
 };
 
 // User APIs
@@ -141,6 +156,11 @@ export const verseApi = {
   deleteVerse: async (id: string, token: string) => {
     const client = createApiClient(token);
     const response = await client.delete(`/verses/${id}`);
+    return response.data;
+  },
+  updateVerse: async (id: string, data: any, token: string) => {
+    const client = createApiClient(token);
+    const response = await client.put(`/verses/${id}`, data);
     return response.data;
   },
 };
