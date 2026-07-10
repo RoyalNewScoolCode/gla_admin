@@ -77,7 +77,7 @@ export default function UploadForm({ onUploadSuccess }: UploadFormProps) {
 
       await audioApi.uploadAudio(uploadFormData, token!);
 
-      toast.success('Podcast téléchargé avec succès !');
+      toast.success('Podcast publié avec succès !');
       setFormData({
         title: '',
         artist: 'GLA',
@@ -89,7 +89,7 @@ export default function UploadForm({ onUploadSuccess }: UploadFormProps) {
       setAudio(null);
       onUploadSuccess();
     } catch (error: any) {
-      toast.error(error.response?.data?.message || 'Échec du téléchargement');
+      toast.error(error.response?.data?.message || 'Échec de la publication');
     } finally {
       setLoading(false);
     }

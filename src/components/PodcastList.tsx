@@ -98,7 +98,7 @@ export default function PodcastList({
         <div className="text-6xl mb-4">📚</div>
         <p className="text-white text-xl font-bold">Votre bibliothèque est vide</p>
         <p className="text-slate-400 mt-2 max-w-xs mx-auto text-sm">
-          Commencez par télécharger votre premier podcast ou message de l'église.
+          Commencez par publier votre premier podcast ou message de l'église.
         </p>
       </div>
     );

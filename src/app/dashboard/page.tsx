@@ -82,7 +82,7 @@ export default function DashboardPage() {
                   : 'text-slate-400 hover:text-white hover:bg-white/5'
               }`}
             >
-              Télécharger
+              Publier
             </button>
             <button
               onClick={() => setActiveTab('verses')}
