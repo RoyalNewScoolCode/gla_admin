@@ -12,7 +12,7 @@ import VerseManager from '@/components/VerseManager';
 export default function DashboardPage() {
   const router = useRouter();
   const { user, isAuthenticated, token } = useAuthStore();
-  const [podcasts, setPodcasts] = useState([]);
+  const [podcasts, setPodcasts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [loadingMore, setLoadingMore] = useState(false);
   const [page, setPage] = useState(1);
@@ -54,7 +54,7 @@ export default function DashboardPage() {
         setHasMore(data.length === PAGE_LIMIT);
         setPage(2);
       } else {
-        setPodcasts((prev: any) => [...prev, ...data]);
+        setPodcasts((prev) => [...prev, ...data]);
         setHasMore(data.length === PAGE_LIMIT);
         setPage(currentPage + 1);
       }
