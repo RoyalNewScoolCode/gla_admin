@@ -28,13 +28,19 @@ interface Podcast {
 interface PodcastListProps {
   podcasts: Podcast[];
   loading: boolean;
+  loadingMore?: boolean;
+  hasMore?: boolean;
   onRefresh: () => void;
+  onLoadMore?: () => void;
 }
 
 export default function PodcastList({
   podcasts,
   loading,
+  loadingMore,
+  hasMore,
   onRefresh,
+  onLoadMore,
 }: PodcastListProps) {
   const token = useAuthStore((state) => state.token);
   const [deleting, setDeleting] = useState<string | null>(null);
@@ -199,6 +205,25 @@ export default function PodcastList({
           </div>
         </div>
       ))}
+
+      {hasMore && onLoadMore && (
+        <div className="col-span-full flex justify-center py-8">
+          <button
+            onClick={onLoadMore}
+            disabled={loadingMore}
+            className="px-8 py-3 bg-blue-600 hover:bg-blue-500 disabled:bg-slate-700 text-white font-bold rounded-2xl transition-all shadow-lg shadow-blue-600/20 flex items-center gap-2"
+          >
+            {loadingMore ? (
+              <>
+                <div className="animate-spin rounded-full h-4 w-4 border-t-2 border-b-2 border-white"></div>
+                Chargement...
+              </>
+            ) : (
+              'Charger plus'
+            )}
+          </button>
+        </div>
+      )}
 
       {/* Edit Modal */}
       {editingPodcast && (

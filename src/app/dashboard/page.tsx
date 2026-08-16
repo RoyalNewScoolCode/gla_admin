@@ -14,6 +14,9 @@ export default function DashboardPage() {
   const { user, isAuthenticated, token } = useAuthStore();
   const [podcasts, setPodcasts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [loadingMore, setLoadingMore] = useState(false);
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
   const [activeTab, setActiveTab] = useState<'podcasts' | 'upload' | 'verses'>('podcasts');
   const [mounted, setMounted] = useState(false);
 
@@ -32,15 +35,34 @@ export default function DashboardPage() {
     loadPodcasts();
   }, [isAuthenticated, token, mounted, router]);
 
-  const loadPodcasts = async () => {
+  const PAGE_LIMIT = 20;
+
+  const loadPodcasts = async (reset = true) => {
     try {
-      setLoading(true);
-      const data = await audioApi.getAllAudio();
-      setPodcasts(data);
+      if (reset) {
+        setLoading(true);
+        setPage(1);
+      } else {
+        setLoadingMore(true);
+      }
+
+      const currentPage = reset ? 1 : page;
+      const data = await audioApi.getAllAudio({ page: currentPage, limit: PAGE_LIMIT });
+
+      if (reset) {
+        setPodcasts(data);
+        setHasMore(data.length === PAGE_LIMIT);
+        setPage(2);
+      } else {
+        setPodcasts((prev: any) => [...prev, ...data]);
+        setHasMore(data.length === PAGE_LIMIT);
+        setPage(currentPage + 1);
+      }
     } catch (error) {
       console.error('Failed to load podcasts:', error);
     } finally {
       setLoading(false);
+      setLoadingMore(false);
     }
   };
 
@@ -104,7 +126,10 @@ export default function DashboardPage() {
               <PodcastList
                 podcasts={podcasts}
                 loading={loading}
-                onRefresh={loadPodcasts}
+                loadingMore={loadingMore}
+                hasMore={hasMore}
+                onRefresh={() => loadPodcasts(true)}
+                onLoadMore={() => loadPodcasts(false)}
               />
             </div>
           )}

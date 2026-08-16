@@ -80,7 +80,7 @@ export const audioApi = {
     return response.data;
   },
 
-  getAllAudio: async (filters?: { language?: string; album?: string }) => {
+  getAllAudio: async (filters?: { language?: string; album?: string; page?: number; limit?: number }) => {
     const response = await apiClient.get('/audio', { params: filters });
     return response.data;
   },
